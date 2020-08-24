@@ -1,0 +1,20 @@
+{
+  "name": "Lab11",
+  "version": "1.0.0",
+  "description": "Authentication",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daisyjohnson-401-advanced-javascript/Lab11.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daisyjohnson-401-advanced-javascript/Lab11/issues"
+  },
+  "homepage": "https://github.com/daisyjohnson-401-advanced-javascript/Lab11#readme"
+}
