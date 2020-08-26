@@ -2,23 +2,23 @@
 
 const express = require('express');
 const router = express.Router();
+
+const user = require('./users-model.js');
 const basicAuth = require('./middleware.js');
-const users = require('./users-model.js');
-
-// const app = express();
-
-// app.use(express.json());
 
 // CUSTOM ROUTES
 router.post('/signup', (req, res, next) => {
   //create a new user
-  const user = new users(req.body);
+  const user = new user(req.body);
 
   // SAVE THE USER
   user.save()
     .then(user => {
       // RESPONDS WITH A SPECIAL TOKEN SO USER CAN SIGN IN AGAIN
-      let token = user.generateToken(user);
+      req.token = user.generateToken(user);
+      req.user = user;
+      res.set('token', req.token);
+      res.cookie('auth', req.token);
       res.status(200).send(token);
     })
     .catch( e => {
@@ -28,10 +28,13 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/signin', basicAuth, (req, res, next) => {
-  res.send(req.user);
-  res.cookie('Auth: ', req.token);
-
+  res.send({
+    token: req.token,
+    user: req.user,
+  })
+  res.cookie('auth', req.token);
 });
+
 router.get('/users', (req, res, next) => {
   users.findById(req.payload._id)
   .then(user => {
